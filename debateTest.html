@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Debate4All.com</title>
+    <meta charset="utf-8">
+    <meta name = "description" content = "A website where you can practice
+    debate in NSDA formats:
+    Lincoln - Douglas, Public - Forum, and Policy. All for free">
+    <meta name = "keywords" content = "practice debate, debate, NSDA, public
+    forum, linoln douglas, policy, free debate practice">
+    <meta name = "author" content = "Pranav Marneni">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300&display=swap" rel="stylesheet">
+    <link href = "cssFile.css" rel = "stylesheet">
+    <link href = "script.js" rel = "Jscript">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <div id = "navbar">
+      <header class = "navhead">Debate4All</header>
+      <button class = "navButton" onclick= "rulesToggle()">Rules</button>
+      <button class = "navButton" onclick= "reportToggle()">Report/Contact</button>
+      <button class = "navButton" onclick = "scheduleToggle()">Debates</button>
+      <button class = "navButton" onclick= "homeToggle()">Home</button>
+    </div>
+    <div id = "welcomeDiv" class = "shortDark">
+      <h2>Get Started</h2>
+      <p><b>What are you here to do?</b></p>
+      <p>Click on the button under the description of what you are here to do to be taken to that page.</p>
+      <p>Find a partner to debate against.<br> Includes setting up your own debate for someone else to join or joining a debate that has already created by another user. Make sure that the debate is according to your preferences such as: format, experience, and schedule.</p>
+      <button onclick = "scheduleToggle()">Debates</button>
+      <p>File a complaint against another user for the violations specified in the rules section or send any comments to Debate4All.</p>
+      <button onclick= "reportToggle()">Contact</button>
+      <p>Understand the rules of the website such as how to schedule, reasons to report a player, or the NSDA guideline for different debate formats.</p>
+      <button onclick= "rulesToggle()">Rules</button>
+      <p>Update your profile's contact information or cancel a debate that you scheduled.</p>
+      <button>Account</button>
+      <p></p>
+    </div>
+
+    <div id = "scheduleDiv" class = "dark">
+      <h1>Scheduling</h1>
+       <p class = "long">Scheduling is easy. You can either fill out the following
+          form to add your own debate or scroll down to where
+       it says "available" to find debates that have been added by others and add
+       yourself by clicking
+       the "add" button. Once you add yourself or someone adds themselves to your
+       debate, you will get each other's contact information.
+       Use that contact info to schedule a debate.</p>
+       <h2>Add a Debate</h2>
+        <form name = schedulingForm id = "Scheduling_pref" method = "post" action = "https://api.sheetmonkey.io/form/mGu1q4HgQzZLqNBnfJpBQk">
+         <legend><b>Scheduling preferences</b></legend>
+         <br>
+          <div>
+          <label>Format:</label>
+          <br>
+          <input type = "radio" name = "Format" value = "Lincoln Douglas" checked/> Lincoln Douglas
+          <br>
+          <input type = "radio" name = "Format" value = "Public Forum" /> Public Forum
+          <br>
+          <input type = "radio" name = "Format" value = "Policy" /> Policy
+          </div>
+          <div id = "Exp">
+          <br>
+          <label>Experience:</label>
+          <br>
+          <input type = "radio" name = "Experience" value = "Beginner" checked/> Beginner
+          <br>
+          <input type = "radio" name = "Experience" value = "Intermediate" /> Intermediate
+          <br>
+          <input type = "radio" name = "Experience" value = "Advanced" /> Advanced
+          <br>
+          </div>
+          <br>
+          <label>Select the range of days you are available.(See the scheduling section in the rules page to see more details.) </label>
+          <br>
+          <div id = "dateTimeDiv">
+          Date 1:  <input type = "date" name = "Start Date">
+          Start time: <input type = "time" name = "Start Time"> 
+          End time: <input type = "time" name = "End Time">
+          <br>
+          <br>
+          </div>
+          <br>
+          <br>
+          <label>Select the time range in which you are available.(See the scheduling section in the rules page to see more details.)</label>
+          <br>
+          <input class = "button" type = "submit">
+          </form>
+          <div>
+            <button id = "addDate" onclick="createDebate()">Add Another</button>
+          </div>
+       <h2>Available</h2>
+       <p>Click on a debate to add yourself to it. Once you click on a debate that looks good, an email page will open with the "to" adress set to the contact email of the user that has set the debate. Use the email to contact and schedule the debate.</p>
+       <div id = "table"></div>
+       <br>
+       <div id = "dashboard">
+        <div id = "formatFilter"></div>
+        <div id = "experienceFilter"></div>
+        <div id = "tableDiv"></div>
+       </div>
+
+     </div>
+
+  <div id = "contactDiv" class = "dark">
+    <h1 class = "lHeading">Contact</h1>
+    <h2 class = "lHeading">Comment</h2>
+    <p class = "lHeading">Click the following button to send an email with your comment.</p>
+   <div>
+
+    <form id = 'comment' action="mailto:pmarn@gmail.com" method = "post">
+    <input class = "button" type = "submit" name = "commentButton" value = "Email"/>
+    </form>
+    <h2>Report a User</h2>
+    <form method = "post" id = "reportForm" action = "https://api.sheetmonkey.io/form/96MJ7y4WgyUwWd55hWnyWV">
+      <label>Please fill in the name of the user you want to report:</label>
+      <br>
+      <label for="userReported"></label>
+      <input name ="userReported" type="text" required/>
+      <br>
+      <br>
+      <label>Please select the reason for your report:</label>
+      <br>
+      <p>If reason is something other than options specified below, please use the comment option above this form.</p>
+      <select id = "reportOptions">
+        <option name = "reasonForReport" value = "rudeness">Rudeness</option>
+        <option name = "reasonForReport" value = "scheduling">Scheduling Problem</option>
+        <option name = "reasonForReport" value = "no-show">No-Show</option>
+        <option name = "reasonForReport" value = "unprep">Unprepared</option>
+      </select>
+      <br>
+      <p id = "reportOptionFeedback"></p>
+      <br>
+      <input  type = "submit" class = "button_light" value = "Report"/>
+    </form>
+    </div>
+    </div>
+  <div id = "rulesDiv" class = "light">
+    <h2 id = "Rules">Rules</h2>
+    <p>Rules go here</p>
+   </div>
+   <script>
+     var i = 2;
+  function createDebate(){
+    if(i < 6){
+
+    var dateText = document.createTextNode("Date " + i + ": ");
+    document.getElementById('dateTimeDiv').appendChild(dateText);
+
+    var newDate = document.createElement("input");
+    newDate.setAttribute("type", "date");
+    newDate.setAttribute("name", "newDate");
+    document.getElementById('dateTimeDiv').appendChild(newDate);
+
+    var startTimeText = document.createTextNode(" Start Time: ");
+    document.getElementById('dateTimeDiv').appendChild(startTimeText);
+
+
+    var newStartTime = document.createElement("input");
+    newStartTime.setAttribute("type", "time");
+    newStartTime.setAttribute("name", "newDate");
+    document.getElementById('dateTimeDiv').appendChild(newStartTime);
+
+    var endTimeText = document.createTextNode(" End Time: ");
+    document.getElementById('dateTimeDiv').appendChild(endTimeText);
+
+    var newEndTime = document.createElement("input");
+    newEndTime.setAttribute("type", "time");
+    newEndTime.setAttribute("name", "newDate");
+    document.getElementById('dateTimeDiv').appendChild(newEndTime);
+
+    var newLine = document.createElement("br");
+    document.getElementById('dateTimeDiv').appendChild(newLine);
+    var newLine2 = document.createElement("br");
+    document.getElementById('dateTimeDiv').appendChild(newLine2);
+    i++;
+    }else{
+      confirm("You have reached the limit for debates.");
+    }
+    }
+
+  
+  var elScheduleDiv = document.getElementById('scheduleDiv');
+    var elRulesDiv = document.getElementById('rulesDiv');
+    var elWelcomeDiv = document.getElementById('welcomeDiv');
+    var elReportDiv = document.getElementById('contactDiv');
+  
+    function homeToggle(){
+      if (elWelcomeDiv.style.display = "none") {
+        elWelcomeDiv.style.display = "block";
+    elRulesDiv.style.display = "none";
+    elReportDiv.style.display = "none";
+    elScheduleDiv.style.display = "none";
+    } else{
+    elScheduleDiv.style.display = "none";
+    }
+    }
+    function scheduleToggle(){
+    if (elScheduleDiv.style.display = "none") {
+    elScheduleDiv.style.display = "block";
+    elRulesDiv.style.display = "none";
+    elReportDiv.style.display = "none";
+    elWelcomeDiv.style.display = "none";
+    } else{
+    elScheduleDiv.style.display = "none";
+    }
+    }
+    
+    function rulesToggle(){
+    if (elRulesDiv.style.display = "none") {
+    elRulesDiv.style.display = "block";
+    elReportDiv.style.display = "none";
+    elScheduleDiv.style.display = "none";
+    elWelcomeDiv.style.display = "none";
+    } else {
+    elRulesDiv.style.display = "none";
+    }
+    }
+    
+    function reportToggle(){
+    if (elReportDiv.style.display = "none") {
+    elReportDiv.style.display = "block";
+    elScheduleDiv.style.display = "none";
+    elRulesDiv.style.display = "none";
+    elWelcomeDiv.style.display = "none";
+    } else {
+    elReportDiv.style.display = "none";
+    }
+    }
+  
+  window.onscroll = function() {myFunction()};
+  
+  var navbar = document.getElementById("navbar");
+  var sticky = navbar.offsetTop;
+  
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky")
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  }
+  
+  google.charts.load('current', {packages: ['table']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+  var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1nmOdDoaAVeN8IPATibi2xKXepq_jEEeloCkzChrOD-U/gviz/tq?range=A:F');
+  query.send(handleQueryResponse);
+}
+
+
+var cssClassNames = {hoverTableRow: 'hoverClass',headerRow: 'tableClass', tableCell: 'contentClass'};
+
+function handleQueryResponse(response) {
+  var data = response.getDataTable();
+  var chart = new google.visualization.Table(document.getElementById('table'));
+  chart.draw(data,null)
+}
+  
+   </script>   
+  </body>
+</html>
